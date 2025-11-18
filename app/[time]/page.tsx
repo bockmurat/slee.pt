@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { getTimeDescription } from '@/lib/time';
 import Link from 'next/link';
+import CodeBlock from '../components/CodeBlock';
 
 interface Props {
   params: Promise<{ time: string }>;
@@ -108,41 +109,31 @@ curl "https://slee.pt/api/delay?time=${time}"`;
             {/* cURL POST with data */}
             <div className="mb-8">
               <h3 className="text-lg font-medium mb-3 text-zinc-800 dark:text-zinc-200">cURL with Payload</h3>
-              <pre className="overflow-x-auto rounded-xl bg-zinc-900 dark:bg-zinc-950 p-4 text-sm text-zinc-100 border border-zinc-800">
-                <code>{curlExample}</code>
-              </pre>
+              <CodeBlock code={curlExample} />
             </div>
 
             {/* cURL POST without data */}
             <div className="mb-8">
               <h3 className="text-lg font-medium mb-3 text-zinc-800 dark:text-zinc-200">cURL without Payload (Optional)</h3>
-              <pre className="overflow-x-auto rounded-xl bg-zinc-900 dark:bg-zinc-950 p-4 text-sm text-zinc-100 border border-zinc-800">
-                <code>{curlEmptyExample}</code>
-              </pre>
+              <CodeBlock code={curlEmptyExample} />
             </div>
 
             {/* JavaScript/Fetch */}
             <div className="mb-8">
               <h3 className="text-lg font-medium mb-3 text-zinc-800 dark:text-zinc-200">JavaScript (Fetch API)</h3>
-              <pre className="overflow-x-auto rounded-xl bg-zinc-900 dark:bg-zinc-950 p-4 text-sm text-zinc-100 border border-zinc-800">
-                <code>{jsExample}</code>
-              </pre>
+              <CodeBlock code={jsExample} language="javascript" />
             </div>
 
             {/* Python */}
             <div className="mb-8">
               <h3 className="text-lg font-medium mb-3 text-zinc-800 dark:text-zinc-200">Python (Requests)</h3>
-              <pre className="overflow-x-auto rounded-xl bg-zinc-900 dark:bg-zinc-950 p-4 text-sm text-zinc-100 border border-zinc-800">
-                <code>{pythonExample}</code>
-              </pre>
+              <CodeBlock code={pythonExample} language="python" />
             </div>
 
             {/* GET Request */}
             <div className="mb-8">
-              <h3 className="text-lg font-medium mb-3 text-zinc-800 dark:text-zinc-200">GET Request (Query Parameter)</h3>
-              <pre className="overflow-x-auto rounded-xl bg-zinc-900 dark:bg-zinc-950 p-4 text-sm text-zinc-100 border border-zinc-800">
-                <code>{getExample}</code>
-              </pre>
+              <h3 className="text-lg font-medium mb-3 text-zinc-800 dark:text-zinc-200">Alternative API Endpoint</h3>
+              <CodeBlock code={getExample} />
             </div>
           </div>
 

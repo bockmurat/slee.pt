@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CodeBlock from './components/CodeBlock';
 
 export default function Home() {
   return (
@@ -40,11 +41,9 @@ export default function Home() {
               <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                 POST to the delay path with your data - it will be echoed back:
               </p>
-              <pre className="overflow-x-auto rounded-xl bg-zinc-900 dark:bg-zinc-950 p-4 text-sm text-zinc-100 border border-zinc-800">
-                <code>{`curl -X POST https://slee.pt/5s \\
+              <CodeBlock code={`curl -X POST https://slee.pt/5s \\
   -H "Content-Type: application/json" \\
-  -d '{"data": {"message": "Hello!"}}'`}</code>
-              </pre>
+  -d '{"data": {"message": "Hello!"}}'`} />
               <p className="text-sm text-zinc-500 dark:text-zinc-500 mt-4">
                 Your payload will be returned after 5 seconds.
               </p>
@@ -55,11 +54,9 @@ export default function Home() {
               <p className="text-zinc-600 dark:text-zinc-400 mb-4">
                 Payload is optional - just POST with an empty body:
               </p>
-              <pre className="overflow-x-auto rounded-xl bg-zinc-900 dark:bg-zinc-950 p-4 text-sm text-zinc-100 border border-zinc-800">
-                <code>{`curl -X POST https://slee.pt/3s \\
+              <CodeBlock code={`curl -X POST https://slee.pt/3s \\
   -H "Content-Type: application/json" \\
-  -d '{}'`}</code>
-              </pre>
+  -d '{}'`} />
               <p className="text-sm text-zinc-500 dark:text-zinc-500 mt-4">
                 Perfect for simple timeout testing.
               </p>
@@ -200,8 +197,7 @@ export default function Home() {
             {/* JavaScript */}
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8">
               <h3 className="text-xl font-semibold mb-4 text-zinc-800 dark:text-zinc-200">JavaScript / TypeScript</h3>
-              <pre className="overflow-x-auto rounded-xl bg-zinc-900 dark:bg-zinc-950 p-4 text-sm text-zinc-100 border border-zinc-800">
-                <code>{`async function testDelay() {
+              <CodeBlock code={`async function testDelay() {
   const response = await fetch('https://slee.pt/3s', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -213,15 +209,13 @@ export default function Home() {
   const result = await response.json();
   console.log(result);
   // Your data is returned after 3 seconds
-}`}</code>
-              </pre>
+}`} language="javascript" />
             </div>
 
             {/* Python */}
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8">
               <h3 className="text-xl font-semibold mb-4 text-zinc-800 dark:text-zinc-200">Python</h3>
-              <pre className="overflow-x-auto rounded-xl bg-zinc-900 dark:bg-zinc-950 p-4 text-sm text-zinc-100 border border-zinc-800">
-                <code>{`import requests
+              <CodeBlock code={`import requests
 
 response = requests.post(
     'https://slee.pt/5s',
@@ -230,15 +224,13 @@ response = requests.post(
 
 result = response.json()
 print(result)
-# Your data is returned after 5 seconds`}</code>
-              </pre>
+# Your data is returned after 5 seconds`} language="python" />
             </div>
 
             {/* Go */}
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8">
               <h3 className="text-xl font-semibold mb-4 text-zinc-800 dark:text-zinc-200">Go</h3>
-              <pre className="overflow-x-auto rounded-xl bg-zinc-900 dark:bg-zinc-950 p-4 text-sm text-zinc-100 border border-zinc-800">
-                <code>{`package main
+              <CodeBlock code={`package main
 
 import (
     "bytes"
@@ -258,15 +250,13 @@ func main() {
         bytes.NewBuffer(body),
     )
     defer resp.Body.Close()
-}`}</code>
-              </pre>
+}`} language="go" />
             </div>
 
             {/* Rust */}
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8">
               <h3 className="text-xl font-semibold mb-4 text-zinc-800 dark:text-zinc-200">Rust</h3>
-              <pre className="overflow-x-auto rounded-xl bg-zinc-900 dark:bg-zinc-950 p-4 text-sm text-zinc-100 border border-zinc-800">
-                <code>{`use reqwest;
+              <CodeBlock code={`use reqwest;
 use serde_json::json;
 
 #[tokio::main]
@@ -281,8 +271,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let body = res.json::<serde_json::Value>().await?;
     println!("{:?}", body);
     Ok(())
-}`}</code>
-              </pre>
+}`} language="rust" />
             </div>
           </div>
         </div>
