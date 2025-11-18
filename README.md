@@ -31,21 +31,30 @@ npm start
 
 ## API Usage
 
-### POST Request
+### POST Request (Direct to Delay Path)
 
 ```bash
-curl -X POST https://slee.pt/api/delay \
+# With payload
+curl -X POST https://slee.pt/5s \
   -H "Content-Type: application/json" \
-  -d '{
-    "time": "5s",
-    "data": {"message": "Your custom payload"}
-  }'
+  -d '{"data": {"message": "Your custom payload"}}'
+
+# Without payload (optional)
+curl -X POST https://slee.pt/3s \
+  -H "Content-Type: application/json" \
+  -d '{}'
 ```
 
-### GET Request
+### Alternative: /api/delay Endpoint
 
 ```bash
+# GET request
 curl "https://slee.pt/api/delay?time=5s"
+
+# POST request
+curl -X POST https://slee.pt/api/delay \
+  -H "Content-Type: application/json" \
+  -d '{"time": "5s", "data": {"message": "Hello"}}'
 ```
 
 ## Time Formats
@@ -80,16 +89,23 @@ curl "https://slee.pt/api/delay?time=5s"
 
 ```
 ├── app/
-│   ├── [time]/          # Dynamic route for delay-specific pages
-│   ├── api/delay/       # API route handler
+│   ├── [time]/          # Dynamic route for delay-specific pages (GET: docs, POST: via middleware)
+│   ├── api/delay/       # Alternative API route handler
 │   ├── layout.tsx       # Root layout with metadata
 │   ├── page.tsx         # Landing page
 │   ├── sitemap.ts       # Programmatic sitemap
 │   └── robots.ts        # Robots.txt
 ├── lib/
 │   └── time.ts          # Time parsing utilities
+├── middleware.ts        # Handles POST requests to /[time] routes
 └── public/              # Static assets
 ```
+
+## How It Works
+
+- **GET `/5s`** → Shows documentation page for 5-second delay
+- **POST `/5s`** → Middleware intercepts, delays 5 seconds, returns JSON with your payload
+- **Payload is optional** → POST with `{}` or include `{"data": {...}}` to echo back
 
 ## Use Cases
 

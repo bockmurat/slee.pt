@@ -1,0 +1,151 @@
+# slee.pt - Delayed API Response Service
+
+> A free API service for generating delayed HTTP responses, perfect for testing timeouts, loading states, and async behavior.
+
+## Overview
+
+slee.pt provides a simple, no-setup API for developers to test their applications with delayed responses. The service supports delays from milliseconds to hours and can echo back custom payloads.
+
+## Primary Use Cases
+
+1. **Timeout Testing** - Verify your application handles slow responses gracefully
+2. **Loading State Testing** - Test UI loading indicators and skeleton screens
+3. **Async Workflow Testing** - Debug complex async/await patterns
+4. **Network Simulation** - Emulate slow network or high-latency scenarios
+5. **Rate Limiting Tests** - Simulate API rate limits and throttling
+6. **Error Boundary Testing** - Test timeout error handling and retry logic
+
+## API Endpoints
+
+### Direct Delay Endpoint (Recommended)
+```
+POST https://slee.pt/{time}
+```
+
+- `{time}` can be: `5s`, `100ms`, `2m`, `240` (defaults to seconds)
+- Payload is optional - can be empty `{}` or include data: `{"data": {...}}`
+- Returns: JSON with timestamp and echoed payload after specified delay
+
+**Examples:**
+- `POST https://slee.pt/5s` - Wait 5 seconds
+- `POST https://slee.pt/100ms` - Wait 100 milliseconds
+- `POST https://slee.pt/2m` - Wait 2 minutes
+- `POST https://slee.pt/240` - Wait 240 seconds (4 minutes)
+
+### Alternative API Endpoint
+```
+GET/POST https://slee.pt/api/delay?time={time}
+```
+
+## Time Format Support
+
+- **Milliseconds**: `100ms`, `500ms`, `1000ms`
+- **Seconds**: `1s`, `5s`, `30s` or plain numbers `5`, `30`, `60`
+- **Minutes**: `1m`, `2m`, `5m`
+- **Hours**: `1h` (for demonstration)
+- **Decimals**: `0.5s`, `1.5m`, `2.5s`
+- **Maximum delay**: 5 minutes (300 seconds)
+
+## Response Format
+
+All successful requests return:
+```json
+{
+  "success": true,
+  "delayed_by": 5000,
+  "requested_delay": "5s",
+  "timestamp": "2025-11-19T12:00:00.000Z",
+  "data": null,
+  "url": null
+}
+```
+
+If you include a payload in your POST request:
+```json
+{
+  "success": true,
+  "delayed_by": 5000,
+  "requested_delay": "5s",
+  "timestamp": "2025-11-19T12:00:00.000Z",
+  "data": {"message": "Your custom data echoed back"},
+  "url": null
+}
+```
+
+## Documentation Pages
+
+Each delay value has a dedicated documentation page:
+- `GET https://slee.pt/5s` - Shows documentation for 5-second delay
+- `GET https://slee.pt/100ms` - Shows documentation for 100ms delay
+- `GET https://slee.pt/2m` - Shows documentation for 2-minute delay
+
+These pages include code examples in multiple languages (JavaScript, Python, Go, Rust).
+
+## Rate Limits
+
+Currently no rate limits are enforced. Please use responsibly.
+
+## Technical Implementation
+
+- Built with Next.js 16 (App Router)
+- Edge Runtime for optimal performance
+- Middleware-based request handling
+- TypeScript for type safety
+- No authentication required
+- No data storage or logging
+
+## Code Examples
+
+### JavaScript/TypeScript
+```javascript
+const response = await fetch('https://slee.pt/3s', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ data: { userId: 123 } })
+});
+const result = await response.json();
+```
+
+### Python
+```python
+import requests
+response = requests.post('https://slee.pt/5s', json={'data': 'test'})
+print(response.json())
+```
+
+### cURL
+```bash
+curl -X POST https://slee.pt/5s \
+  -H "Content-Type: application/json" \
+  -d '{"data": {"test": "value"}}'
+```
+
+## Popular Delay Values
+
+- **100ms** - Quick network simulation
+- **500ms** - Typical API response time
+- **1s** - Standard loading state test
+- **3s** - User patience threshold test
+- **5s** - Timeout boundary test
+- **10s** - Long operation simulation
+- **30s** - Extended timeout test
+- **60s** - Maximum user wait test
+
+## Status
+
+- ✅ Production ready
+- ✅ Free to use
+- ✅ No authentication required
+- ✅ No tracking or analytics
+- ✅ Open source friendly
+
+## Contact & Support
+
+- Website: https://slee.pt
+- Sitemap: https://slee.pt/sitemap.xml
+- Issues: Use responsibly, no official support
+
+---
+
+Last updated: 2025-11-19
+Service version: 1.0.0
