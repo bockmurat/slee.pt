@@ -227,6 +227,17 @@ print(result)
 # Your data is returned after 5 seconds`} language="python" />
             </div>
 
+            {/* wget */}
+            <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8">
+              <h3 className="text-xl font-semibold mb-4 text-zinc-800 dark:text-zinc-200">wget (Alpine/Minimal Builds)</h3>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">Perfect for Alpine-based Docker containers and minimal Linux distributions</p>
+              <CodeBlock code={`wget --post-data='{"data": {"test": "value"}}' \\
+  --header='Content-Type: application/json' \\
+  --timeout=180 \\
+  -O response.json \\
+  https://slee.pt/2m`} />
+            </div>
+
             {/* Go */}
             <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8">
               <h3 className="text-xl font-semibold mb-4 text-zinc-800 dark:text-zinc-200">Go</h3>

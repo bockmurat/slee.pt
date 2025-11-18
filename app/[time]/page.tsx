@@ -62,6 +62,12 @@ response = requests.post(
 )
 print(response.json())`;
 
+  const wgetExample = `wget --post-data='{"data": "your data"}' \\
+  --header='Content-Type: application/json' \\
+  --timeout=180 \\
+  -O response.json \\
+  https://slee.pt/${time}`;
+
   const getExample = `# Also available via /api/delay endpoint:
 curl "https://slee.pt/api/delay?time=${time}"`;
 
@@ -128,6 +134,13 @@ curl "https://slee.pt/api/delay?time=${time}"`;
             <div className="mb-8">
               <h3 className="text-lg font-medium mb-3 text-zinc-800 dark:text-zinc-200">Python (Requests)</h3>
               <CodeBlock code={pythonExample} language="python" />
+            </div>
+
+            {/* wget */}
+            <div className="mb-8">
+              <h3 className="text-lg font-medium mb-3 text-zinc-800 dark:text-zinc-200">wget (Alpine/Minimal Builds)</h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 mb-2">Perfect for Alpine-based Docker containers and minimal Linux distributions</p>
+              <CodeBlock code={wgetExample} />
             </div>
 
             {/* GET Request */}
