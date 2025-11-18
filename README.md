@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# slee.pt
 
-## Getting Started
+A dead simple API service for delayed responses. Perfect for testing timeouts, loading states, and async behavior.
 
-First, run the development server:
+## Features
+
+- **Flexible Time Formats**: Support for milliseconds, seconds, minutes, and hours (e.g., `500ms`, `5s`, `2m`, `1h`)
+- **Custom Payloads**: Send data in POST requests and receive it back after the delay
+- **GET & POST Support**: Use query parameters or request body
+- **SEO Optimized**: Programmatic sitemap with common use cases
+- **Dynamic Documentation**: Each delay endpoint shows specific usage examples
+- **Type-Safe**: Built with TypeScript
+
+## Quick Start
+
+### Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## API Usage
 
-To learn more about Next.js, take a look at the following resources:
+### POST Request
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+curl -X POST https://slee.pt/api/delay \
+  -H "Content-Type: application/json" \
+  -d '{
+    "time": "5s",
+    "data": {"message": "Your custom payload"}
+  }'
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### GET Request
 
-## Deploy on Vercel
+```bash
+curl "https://slee.pt/api/delay?time=5s"
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Time Formats
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Format | Example | Description |
+|--------|---------|-------------|
+| Plain number | `240` | Seconds (default) |
+| Milliseconds | `500ms` | Milliseconds |
+| Seconds | `5s` | Seconds |
+| Minutes | `2m` | Minutes |
+| Hours | `1h` | Hours |
+| Decimal | `1.5s` | Decimal values supported |
+
+**Maximum delay**: 5 minutes (300 seconds)
+
+## Response Format
+
+```json
+{
+  "success": true,
+  "delayed_by": 5000,
+  "requested_delay": "5s",
+  "timestamp": "2025-11-19T02:30:45.123Z",
+  "data": {
+    "message": "Your custom payload"
+  },
+  "url": null
+}
+```
+
+## Project Structure
+
+```
+├── app/
+│   ├── [time]/          # Dynamic route for delay-specific pages
+│   ├── api/delay/       # API route handler
+│   ├── layout.tsx       # Root layout with metadata
+│   ├── page.tsx         # Landing page
+│   ├── sitemap.ts       # Programmatic sitemap
+│   └── robots.ts        # Robots.txt
+├── lib/
+│   └── time.ts          # Time parsing utilities
+└── public/              # Static assets
+```
+
+## Use Cases
+
+- Testing timeout handling
+- Simulating slow network conditions
+- Testing UI loading states
+- Debugging async/await behavior
+- Rate limiting tests
+- Error boundary testing
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Runtime**: Edge Runtime
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **Deployment**: Vercel (recommended)
+
+## Development
+
+### Adding New Features
+
+The codebase is organized for easy extension:
+
+- **Time parsing**: Edit `lib/time.ts`
+- **API logic**: Edit `app/api/delay/route.ts`
+- **SEO/Sitemap**: Edit `app/sitemap.ts`
+- **Documentation**: Edit `app/page.tsx` or `app/[time]/page.tsx`
+
+### Environment
+
+- Node.js 18+ required
+- No environment variables needed
+- No database required
+
+## License
+
+MIT
+
+## Contributing
+
+Contributions welcome! Please open an issue or PR.
+
+---
+
+Built with ❤️ using Next.js
+# slee.pt
